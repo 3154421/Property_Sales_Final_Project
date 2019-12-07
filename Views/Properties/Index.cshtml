@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Property_Sales_Final_Project.Models.Property>
+
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Registered Properties</h1>
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("properyAdmin"))
+{
+    <p>
+        <a class="btn btn-outline-secondary" asp-action="Create">Register A New  Property</a>
+    </p>
+}
+
+<div class="row">
+
+    <
+    @foreach (var item in Model)
+    {
+
+        <div class="col-lg-3" >
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <u>
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Title)</h5> </u>
+                            <h6 class="card-subtitle mb-2 text-muted">Address : @Html.DisplayFor(modelItem => item.Address)</h6>
+                            <p class="card-text">
+                                Price :    @Html.DisplayFor(modelItem => item.SellingPrice)
+
+                            </p>
+                            @if (SignInManager.IsSignedIn(User) && User.IsInRole("properyAdmin"))
+                            {
+                                <a class="btn btn-outline-secondary"  href="/Properties/Edit/@item.Id">Update Property</a>
+                                <a class="btn btn-outline-secondary" href="/Properties/Details/@item.Id">Details</a>
+                                <a class="btn btn-outline-secondary" href="/Properties/Delete/@item.Id">Remove</a>
+                            }
+                            else if (SignInManager.IsSignedIn(User) && User.IsInRole("buyer"))
+                            {
+
+                                <a class="btn btn-outline-secondary" href="/Properties/Details/@item.Id">Buy Property</a>
+                            }
+</div>
+            </div>
+        </div>
+    }
+</div>

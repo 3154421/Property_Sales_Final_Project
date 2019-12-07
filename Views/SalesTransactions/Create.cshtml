@@ -1,0 +1,19 @@
+﻿@model Property_Sales_Final_Project.Models.SalesTransaction
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SalesTransaction</h4>
+<hr />
+<h5>@Model.Buyer.Name  You have confirmed the sale for property at  @Model.Property.Address for $@Model.Property.SellingPrice</h5>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
